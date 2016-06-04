@@ -1,0 +1,26 @@
+tosca_definitions_version: cloudify_dsl_1_2
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.3/types.yaml
+
+inputs:
+
+  host_ip:
+    default: localhost
+
+node_templates:
+
+  myscript:
+    type: cloudify.nodes.ApplicationModule
+    relationships: 
+      - type: cloudify.relationships.contained_in
+        target: mynode
+    interfaces:
+      cloudify.interfaces.lifecycle:
+          create: myscript.sh
+  mynode:
+    type: cloudify.nodes.Compute
+    properties:
+      ip: { get_input: host_ip }
+      install_agent: false
+

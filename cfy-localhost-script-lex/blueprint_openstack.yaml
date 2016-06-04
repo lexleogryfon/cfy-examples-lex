@@ -1,0 +1,25 @@
+tosca_definitions_version: cloudify_dsl_1_2
+
+imports:
+  - http://www.getcloudify.org/spec/cloudify/3.3/types.yaml
+  - http://www.getcloudify.org/spec/openstack-plugin/1.4/plugin.yaml
+
+
+inputs:
+  image_input: ebab03e6-a674-4b6e-8f60-691c90fbcdc6
+  flavor_input: d87de0ca-9c0e-4759-a704-8621883c3415
+  host_ip:
+    default: localhost
+
+node_templates:
+
+  mynode:
+    type: cloudify.openstack.nodes.Server
+    properties:
+      image: { get_input: image_input }
+      flavor: { get_input: flavor_input } 
+      
+      
+    interfaces:
+      cloudify.interfaces.lifecycle:
+          create: myscript.sh
