@@ -1,5 +1,3 @@
 #!/bin/bash
-
 set -e
-
-sudo service nginx reload
+sudo systemctl start httpd

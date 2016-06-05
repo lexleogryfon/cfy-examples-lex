@@ -1,5 +1,3 @@
 #!/bin/bash
-
 set -e
-
-sudo service nginx stop
+sudo systemctl stop httpd
