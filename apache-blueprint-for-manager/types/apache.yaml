@@ -7,7 +7,15 @@ node_types:
     derived_from: cloudify.nodes.ApplicationServer
     interfaces:
       cloudify.interfaces.lifecycle:
-        create: scripts/apache/install.sh
-        start: scripts/apache/start.sh
-        stop: scripts/apache/stop.sh
-
+        create: 
+          implementation: fabric.fabric_plugin.tasks.run_task
+          inputs:
+            tasks_file: scripts/apache/create_fab.py
+            task_name: install_apache
+        start:
+          implementation: fabric.fabric_plugin.tasks.run_script
+          inputs:
+            # Path to the script relative to the blueprint directory
+            script_path: scripts/apache/start.py
+            MY_ENV_VAR: some-value
+        stop: scripts/apache/stop.py
