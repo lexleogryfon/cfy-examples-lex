@@ -1,0 +1,13 @@
+
+node_types:
+  virtual.nodes.machine:
+    derived_from: cloudify.openstack.nodes.Server
+
+  apache.nodes.runtime:
+    derived_from: cloudify.nodes.ApplicationServer
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        create: scripts/apache/install.sh
+        start: scripts/apache/start.sh
+        stop: scripts/apache/stop.sh
+
