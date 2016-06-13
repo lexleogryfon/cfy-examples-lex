@@ -7,15 +7,28 @@ node_types:
     derived_from: cloudify.nodes.ApplicationServer
     interfaces:
       cloudify.interfaces.lifecycle:
+
         create: 
           implementation: fabric.fabric_plugin.tasks.run_task
           inputs:
-            tasks_file: scripts/apache/create_fab.py
-            task_name: install_apache
+            tasks_file: 
+               default: scripts/apache/create_fab.py
+            task_name:
+               default: install_apache
+            fabric_env:              
+                default: 
+                  user: centos
+                  key_filename: /home/centos/.ssh/cloudify-agent-kp.pem
+
         start:
           implementation: fabric.fabric_plugin.tasks.run_script
           inputs:
             # Path to the script relative to the blueprint directory
-            script_path: scripts/apache/start.py
-            MY_ENV_VAR: some-value
+            script_path: 
+               default: scripts/apache/start.py
+            fabric_env:
+                default:
+                  user: centos
+                  key_filename: /home/centos/.ssh/cloudify-agent-kp.pem
+
         stop: scripts/apache/stop.py

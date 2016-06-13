@@ -1,6 +1,7 @@
 from fabric.api import run, task, sudo
 #from cloudify import ctx
 
+
 @task
 def install_apache():
 #    ctx.logger.info('Installing Apache httpd via fabric') # non compitable with fab utility, could be executed only via manager
